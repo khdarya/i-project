@@ -29,4 +29,5 @@
 .error {
     font-size: 10pt;
     color: red;
+    margin-left: 5px;
 }
