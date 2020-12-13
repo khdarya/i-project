@@ -11,3 +11,10 @@ export const passwordAPI = {
             .then(res => res.data)
     }
 }
+
+export const registrationAPI = {
+    sendNewRegistration(email: string, password: string) {
+        return instance.post(`/auth/register`, {email, password})
+            .then(res => res.data)
+    }
+}
