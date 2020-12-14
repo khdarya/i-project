@@ -6,14 +6,20 @@
     background: #4676D7;
     color: #fff;
     padding: .4em 1em .4em 1em;
-    font-size: 14px;
     cursor: pointer;
+    font-size: 13pt;
+}
+.default:hover {
+    background: #3c61b1;
 }
 .default:active{
-    background: #3c61b1;
+    background-color: gray;
 }
 .default:focus{
     outline: none;
+}
+.default:disabled{
+    background-color: gray;
 }
 .red {
     margin-left: 5px;
@@ -23,7 +29,7 @@
     background: #ef2d2d;
     color: #fff;
     padding: .4em 1em .4em 1em;
-    font-size: 14px;
+    font-size: 13pt;
     cursor: pointer;
 }
 .red:active{

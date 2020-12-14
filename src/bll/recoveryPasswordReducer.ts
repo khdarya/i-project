@@ -2,25 +2,23 @@ import {ThunkAction} from "redux-thunk";
 import {AppStoreType} from "./store";
 import {Dispatch} from "react";
 import {passwordAPI} from "../dal/api";
+import {isRequestInProgress, isRequestSuccess, RequestActionCreatorsType, setResponseErrorText} from "./requestReduced";
 
-export enum ACTIONS_TYPE {
-    CHANGE_INPUT_PASS = 'Recovery/CHANGE_INPUT_PASS',
+enum ACTIONS_TYPE {
+    CHANGE_INPUT_EMAIL = 'Recovery/CHANGE_INPUT_EMAIL',
 }
 
-export type PasswordType = {
+type RecoveryStateType = {
     email: string
 }
-const initState: PasswordType = {
-    email: ''
+const initState: RecoveryStateType = {
+    email: '',
 }
 
-export const recoveryPasswordReducer = (state: PasswordType = initState, action: RecoveryPasswordActionCreatorsType): PasswordType => {
+export const recoveryPasswordReducer = (state: RecoveryStateType = initState, action: RecoveryPasswordActionCreatorsType): RecoveryStateType => {
     switch (action.type) {
-        case ACTIONS_TYPE.CHANGE_INPUT_PASS: {
-            return {
-                ...state,
-                email: action.payload
-            }
+        case ACTIONS_TYPE.CHANGE_INPUT_EMAIL: {
+            return {...state, ...action.payload}
         }
         default:
             return state
@@ -28,20 +26,17 @@ export const recoveryPasswordReducer = (state: PasswordType = initState, action:
 }
 
 // actions
-type ChangeInputPassACType = {
-    type: ACTIONS_TYPE.CHANGE_INPUT_PASS
-    payload: string
-}
-export const changeInputPass = (text: string): ChangeInputPassACType => {
+export const changeInputEmail = (text: string) => {
     return {
-        type: ACTIONS_TYPE.CHANGE_INPUT_PASS,
-        payload: text
+        type: ACTIONS_TYPE.CHANGE_INPUT_EMAIL,
+        payload: { email: text }
     }
 }
 
 // types
-type ThunkType = ThunkAction<void, AppStoreType, Dispatch<RecoveryPasswordActionCreatorsType>, RecoveryPasswordActionCreatorsType>
+type ChangeInputPassACType = ReturnType<typeof changeInputEmail>
 export type RecoveryPasswordActionCreatorsType = ChangeInputPassACType
+export type ThunkType = ThunkAction<void, AppStoreType, Dispatch<RecoveryPasswordActionCreatorsType | RequestActionCreatorsType>, RecoveryPasswordActionCreatorsType | RequestActionCreatorsType>
 
 // thunks
 export const forgotPass = (): ThunkType => {
@@ -52,10 +47,19 @@ export const forgotPass = (): ThunkType => {
                                 password recovery link: 
                                 <a href='http://localhost:3000/#/newpass/$token$'>link</a>
                          </div>`
+        dispatch(isRequestInProgress(true))
+        dispatch(setResponseErrorText(null, 'RecoveryPassword'))
+
         passwordAPI.sendForgotData(email, from, message)
-            .then(responseData => {
-                console.log(responseData)
+            .then(response => {
+                dispatch(isRequestSuccess(true))
             })
+            .catch(e => {
+                const error = e.response
+                    ? e.response.data.error
+                    : (e.message + ', more details in the console');
+                dispatch(setResponseErrorText(error, 'RecoveryPassword'))
+            })
+            .finally(() => dispatch(isRequestInProgress(false)))
     }
 }
-

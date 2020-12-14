@@ -5,7 +5,8 @@ import {registrationAPI} from "../dal/api";
 
 export enum ACTIONS_TYPE {
     SUCCESSFULLY_REGISTERED = 'Registration/SUCCESSFULLY_REGISTERED',
-    ERROR = 'Registration/ERROR'
+    ERROR = 'Registration/ERROR',
+
 }
 
 export type RegistrationType = {
@@ -36,7 +37,6 @@ export const registrationReducer = (state: RegistrationType = initState, action:
     }
 }
 //actions
-
 type ActionsType = RegistrationACType | ErrorACType
 
 export type RegistrationACType = {
@@ -59,19 +59,16 @@ export const errorAC = (error: string) =>
 //thunk
 type ThunkType = ThunkAction<void, AppStoreType, Dispatch<ActionsType>, ActionsType>
 
-export const registerUser = (email: string, password: string, confirmPassword: string): ThunkType => (dispatch) => {
+export const registerUser = (email: string, password: string): ThunkType => (dispatch) => {
     registrationAPI.sendNewRegistration(email, password)
-        .then(res => {
-            if( password !== confirmPassword )
-                dispatch (errorAC("The passwords you entered do not match"))
-            else {
-                dispatch(registrationAC(true))
-                console.log(res)
-            }
-
+        .then(response => {
+            dispatch(registrationAC(true))
         })
-        .catch((error) => {
-            errorAC(error)
+        .catch((e) => {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', more details in console');
+            dispatch(errorAC(error))
         })
 
 }

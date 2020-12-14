@@ -8,7 +8,11 @@ const instance = axios.create({
 export const passwordAPI = {
     sendForgotData(email: string, from: string, message: string) {
         return instance.post(`/auth/forgot`, {email, from, message})
-            .then(res => res.data)
+            .then(res => res)
+    },
+    setNewPassword(password: string, resetPasswordToken: string) {
+        return instance.post(`/auth/set-new-password`, {password, resetPasswordToken})
+            .then(res => res)
     }
 }
 

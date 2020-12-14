@@ -10,7 +10,7 @@ type SuperInputTextPropsType = DefaultInputPropsType & {
     spanClassName?: string
 };
 
-const SuperInputText: React.FC<SuperInputTextPropsType> = (
+const SuperInputText: React.FC<SuperInputTextPropsType> = React.memo((
     {
         type,
         onChange,
@@ -22,6 +22,7 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
         ...restProps
     }
 ) => {
+    console.log('SuperInputText')
 
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         onChange && onChange(e)
@@ -48,6 +49,6 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
             {error && <div className={finalSpanClassName}>{error}</div>}
         </>
     )
-}
+})
 
 export default SuperInputText
