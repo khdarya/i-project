@@ -6,9 +6,11 @@ import {Redirect} from 'react-router-dom';
 
 export const RegistrationContainer = () => {
 
+    console.log('RegistrationContainer')
 
     let isRegistration = useSelector<AppStoreType>(state => state.registration.isRegistered)
     let isError = useSelector((state: AppStoreType) => state.registration.error)
+    let isRequestInProgress = useSelector((state: AppStoreType) => state.request.isRequestInProgress)
 
 
     if (isRegistration) {
@@ -19,6 +21,7 @@ export const RegistrationContainer = () => {
     return (
         <Registration
                       isError={isError}
+                      isRequestInProgress={isRequestInProgress}
         />
     )
 };
