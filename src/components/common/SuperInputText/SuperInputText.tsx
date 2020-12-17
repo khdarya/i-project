@@ -35,7 +35,7 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = React.memo((
     }
 
     const finalSpanClassName = `${s.error} ${spanClassName ? spanClassName : ""}`
-    const finalInputClassName = `${s.superInput} ${error ? s.errorInput : s.blue }`
+    const finalInputClassName = `${s.superInput} ${className === "error" || error ? s.errorInput : s.blue }`
 
     return (
         <>

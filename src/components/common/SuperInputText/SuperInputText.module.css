@@ -1,7 +1,6 @@
 .superInput {
     outline: none;
     border: none;
-    margin-left: 5px;
     font-size: 12pt;
     padding: 0;
     width: 99%;
@@ -9,8 +8,6 @@
 }
 
 .blue {
-    margin-top: 10px;
-
     width: 250px;
     border: 2px solid #4676D7;
     padding: 5px;
@@ -31,5 +28,4 @@
 .error {
     font-size: 10pt;
     color: red;
-    margin-left: 5px;
 }

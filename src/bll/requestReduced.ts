@@ -4,7 +4,7 @@ enum ACTIONS_TYPE {
     SET_RESPONSE_ERROR_TEXT = 'Request/SET_RESPONSE_ERROR_TEXT',
 }
 
-type ResponseErrorType = {
+export type ResponseErrorType = {
     text: string | null
     inComponent: string | null
 }

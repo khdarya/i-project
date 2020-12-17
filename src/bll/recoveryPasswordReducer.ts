@@ -63,3 +63,5 @@ export const forgotPass = (): ThunkType => {
             .finally(() => dispatch(isRequestInProgress(false)))
     }
 }
+
+// <a href='http://localhost:3000/#/newpass/$token$'>link</a>

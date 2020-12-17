@@ -2,7 +2,7 @@ import {ThunkAction} from "redux-thunk";
 import {AppStoreType} from "./store";
 import {Dispatch} from "react";
 import {registrationAPI} from "../dal/api";
-import {isRequestInProgress, RequestActionCreatorsType} from "./requestReduced";
+import {isRequestInProgress, RequestActionCreatorsType, setResponseErrorText} from "./requestReduced";
 
 export enum ACTIONS_TYPE {
     SUCCESSFULLY_REGISTERED = 'Registration/SUCCESSFULLY_REGISTERED',
@@ -63,6 +63,8 @@ export type ThunkType = ThunkAction<void, AppStoreType, Dispatch<ActionsType | R
 export const registerUser = (email: string, password: string, confirmPassword: string): ThunkType => (dispatch) => {
 
     dispatch(isRequestInProgress(true))
+    dispatch(setResponseErrorText(null, 'Registration'))
+
     registrationAPI.sendNewRegistration(email, password)
         .then(response => {
             dispatch(registrationAC(true))
@@ -72,6 +74,8 @@ export const registerUser = (email: string, password: string, confirmPassword: s
                 ? e.response.data.error
                 : (e.message + ', more details in console');
             dispatch(errorAC(error))
+            dispatch(setResponseErrorText(error, 'Registration'))
+
         })
         .finally(() => dispatch(isRequestInProgress(false)))
 }
