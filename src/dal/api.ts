@@ -22,3 +22,17 @@ export const registrationAPI = {
             .then(res => res.data)
     }
 }
+
+export const authAPI = {
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post('/auth/login', {email, password, rememberMe})
+    },
+    logout() {
+        return instance.delete('/auth/me')
+    }
+}
+export const profileAPI = {
+    getProfile() {
+        return instance.post('/auth/me')
+    }
+}

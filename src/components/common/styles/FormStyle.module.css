@@ -11,7 +11,7 @@
     position: relative;
     background-image: linear-gradient(to bottom, #3541c9, #304bc9, #2e54c9, #305cc8, #3564c6, #426ac8, #4e71cb, #5877cd, #697ed5, #7986de, #898de6, #9895ee);
     font-size: 1.5em;
-
+    font-family: 'Poppins', sans-serif;
 }
 
 .form {
@@ -27,6 +27,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    text-align: center;
+    color: #363434;
 
 }
 
@@ -45,18 +47,15 @@
     height: 55px;
 }
 
-.bottomLink {
-    margin-top: 1em;
-    color: #3c61b1;
-    font-size: .65em;
-    text-align: center;
-    position: relative;
-    cursor: pointer;
-    text-decoration: underline;
+@media screen and (max-width: 600px) {
+    .form {
+        width: 60%;
+    }
 }
+
 .error {
     font-size: 10pt;
-    color: red;
+    color: #c61a1a;
     margin-left: 5px;
 }
 
@@ -67,3 +66,12 @@
     height: 20px;
     font-size: 10pt;
 }
+.text {
+    text-decoration: none;
+    color: #404040;
+    font-size: 17px;
+}
+.text:hover {
+    font-weight: 600;
+}
+

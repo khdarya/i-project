@@ -1,9 +1,11 @@
 .checkbox {
-    transform: scale(2);
+    transform: scale(1.5, 1.5);
     cursor: pointer;
     margin-left: 10px;
 }
+
 .spanClassName {
-    margin-left: 5px;
+    margin-left: 10px;
+    font-size: 1rem;
 }
 

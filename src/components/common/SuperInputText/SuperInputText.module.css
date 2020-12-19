@@ -17,7 +17,7 @@
 }
 
 .errorInput {
-    border: 2px solid red;
+    border: 2px solid #c61a1a;
     border-radius: 5px;
     width: 250px;
     padding: 5px;
@@ -27,5 +27,5 @@
 
 .error {
     font-size: 10pt;
-    color: red;
+    color: #c61a1a;
 }

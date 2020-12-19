@@ -92,6 +92,8 @@ const Registration: React.FC<RegistrationType> = React.memo((props) => {
                     <SuperInputText placeholder={"Enter your password"}
                                     onChangeText={handlerChangePassword}
                                     value={password}
+                                    type={'password'}
+
                                     error={!!passwordsError ? passwordsError : ''}
                     />
                 </div>
@@ -99,6 +101,7 @@ const Registration: React.FC<RegistrationType> = React.memo((props) => {
                     <SuperInputText placeholder={"Confirm password"}
                                     onChangeText={handlerChangeConfirmPassword}
                                     value={confirmPassword}
+                                    type={'password'}
                                     error={!!passwordsError ? passwordsError : ''}
                     />
                 </div>
@@ -110,8 +113,8 @@ const Registration: React.FC<RegistrationType> = React.memo((props) => {
                     onClick={onRegister}
                     disabled={props.isRequestInProgress}>Sign Up</SuperButton>
             </div>
-            <div className={styles.bottomLink}>
-                <NavLink to={'/login'}>Login page</NavLink>
+            <div >
+                <NavLink className={styles.text} to={'/login'}>Login page</NavLink>
             </div>
         </div>
     )

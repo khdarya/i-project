@@ -7,7 +7,7 @@ type SuperCheckboxPropsType = DefaultInputPropsType & {
     spanClassName?: string
 }
 
-const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
+const SuperCheckbox: React.FC<SuperCheckboxPropsType> = React.memo((
     {
         type,
         onChange,
@@ -24,7 +24,7 @@ const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
     }
 
     const finalInputClassName = `${s.checkbox} ${className ? className : ""}`
-
+    console.log("Cf")
     return (
         <label>
             <input
@@ -36,6 +36,6 @@ const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
             {children && <span className={s.spanClassName}>{children}</span>}
         </label>
     )
-}
+})
 
 export default SuperCheckbox

@@ -40,7 +40,7 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = React.memo((
     return (
         <>
             <input
-                type={'text'}
+                type={type}
                 onChange={onChangeCallback}
                 onKeyPress={onKeyPressCallback}
                 className={finalInputClassName}

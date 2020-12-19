@@ -70,12 +70,14 @@ const NewPassword: React.FC = () => {
                 </div>
                 <div className={styles.formInput}>
                     <SuperInputText placeholder={'Enter your password'}
+                                    type={'password'}
                                     onChangeText={handlerChangeNewPassText}
                                     error={(!!passwordsError ? passwordsError : '')}
                                     className={!!serverErrorText ? 'error' : ''}/>
                 </div>
                 <div className={styles.formInput}>
                     <SuperInputText placeholder={'Confirm password'}
+                                    type={'password'}
                                     onChangeText={handlerChangeNewConfirmPassText}
                                     error={!!passwordsError ? passwordsError : ''}
                                     className={!!serverErrorText ? 'error' : ''}/>

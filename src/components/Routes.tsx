@@ -1,13 +1,14 @@
 import React from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
-import Login from './Login/Login'
 import Error404 from './Error404/Error404'
 import Test from './Test/Test'
 import {DevHeader} from "./dev/DevHeader";
-import Profile from './Profile/Profile'
 import { RegistrationContainer } from './Registration/RegistrationContainer'
 import RecoveryPassword from './RecoveryPassword/RecoveryPassword'
 import NewPassword from './NewPassword/NewPassword'
+import LoginContainer from "./Login/LoginContainer";
+import ProfileContainer from "./Profile/ProfileContainer";
+
 
 export const PATH = {
     Login: '/login',
@@ -24,12 +25,12 @@ function Routes() {
         <div>
             <DevHeader titles={PATH}/>
             <Switch>
-                <Route path={"/"} exact render={() => <Redirect to={PATH.Test}/>}/>
-                <Route path={PATH.Login} render={() => <Login/>}/>
-                <Route path={PATH.Registration} render={() => <RegistrationContainer />}/>
+                <Route exact path={"/"} render={() => <Redirect to={PATH.Test}/>}/>
+                <Route path={PATH.Login} render={() => <LoginContainer/>}/>
+                <Route path={PATH.Registration} render={() => <RegistrationContainer/>}/>
                 <Route path={PATH.NewPassword} render={() => <NewPassword/>}/>
                 <Route path={PATH.RecoveryPassword} render={() => <RecoveryPassword/>}/>
-                <Route path={PATH.Profile} render={() => <Profile />}/>
+                <Route path={PATH.Profile} render={() => <ProfileContainer/>}/>
                 <Route path={PATH.Test} render={() => <Test/>}/>
                 <Route render={() => <Error404/>}/>
             </Switch>

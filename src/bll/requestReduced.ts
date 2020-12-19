@@ -64,9 +64,9 @@ export const setResponseErrorText = (text: string | null, inComponent: string | 
 }
 
 // types
-type SetSendRequestACType = ReturnType<typeof isRequestInProgress>
+export type SetSendRequestACType = ReturnType<typeof isRequestInProgress>
 type SetSendEmailSuccessTextACType = ReturnType<typeof isRequestSuccess>
-type SetErrorTextACType = ReturnType<typeof setResponseErrorText>
+export type SetErrorTextACType = ReturnType<typeof setResponseErrorText>
 export type RequestActionCreatorsType = SetErrorTextACType
     | SetSendEmailSuccessTextACType
     | SetSendRequestACType
