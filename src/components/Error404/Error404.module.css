@@ -1,0 +1,44 @@
+
+.body {
+    background-color: #95c2de;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    flex-wrap: wrap;
+    height: 100vh;
+}
+
+.mainbox {
+    background-color: #95c2de;
+    margin: auto;
+    height: 100vh;
+    display: block;
+}
+
+.err {
+    color: #ffffff;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 11rem;
+    margin-top: 5rem;
+    position: relative;
+    text-align: center;
+
+}
+
+.msg {
+    text-align: center;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1.6rem;
+    position: relative;
+    padding: 10px;
+}
+
+.errLink {
+    text-decoration: none;
+    color: white;
+}
+
+.errLink:hover {
+    color: #d9cdcd;
+}

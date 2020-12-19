@@ -1,0 +1,14 @@
+.text {
+    text-decoration: none;
+    color: #404040;
+    font-size: 17px;
+}
+
+.text:hover {
+    font-weight: 600;
+}
+
+.password {
+    display: flex;
+    flex-direction: column;
+}
