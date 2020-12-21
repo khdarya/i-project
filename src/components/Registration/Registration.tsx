@@ -32,13 +32,6 @@ const Registration: React.FC<RegistrationType> = React.memo((props) => {
             setServerErrorText(null)
         }
     }, [props.serverError])
-    useEffect(() => {
-        if (props.serverError.inComponent === 'Registration') {
-            setServerErrorText(props.serverError.text)
-        } else {
-            setServerErrorText(null)
-        }
-    }, [props.serverError])
 
     const onRegister = useCallback(() => {
         !checkEmail(email) && setEmailError('Not email')
