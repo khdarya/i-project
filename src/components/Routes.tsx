@@ -8,6 +8,7 @@ import RecoveryPassword from './RecoveryPassword/RecoveryPassword'
 import NewPassword from './NewPassword/NewPassword'
 import LoginContainer from "./Login/LoginContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
+import Search from "./Search/Search";
 
 
 export const PATH = {
@@ -18,6 +19,7 @@ export const PATH = {
     Test: '/test',
     NewPassword: '/newpass/:id',
     RecoveryPassword: '/recpass',
+    Search: '/search'
 }
 
 function Routes() {
@@ -31,6 +33,7 @@ function Routes() {
                 <Route path={PATH.NewPassword} render={() => <NewPassword/>}/>
                 <Route path={PATH.RecoveryPassword} render={() => <RecoveryPassword/>}/>
                 <Route path={PATH.Profile} render={() => <ProfileContainer/>}/>
+                <Route path={PATH.Search} render={() => <Search />} />
                 <Route path={PATH.Test} render={() => <Test/>}/>
                 <Route render={() => <Error404/>}/>
             </Switch>
