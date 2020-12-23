@@ -39,7 +39,7 @@ const Search = () => {
             </div>
 
             <Sort/>
-            <Pagination pageCount={4} pageTotalCount={16} />
+            <Pagination itemsCountInTotal={20} itemsOnOnePage={4} currentPage={1} />
 
         </div>
     )

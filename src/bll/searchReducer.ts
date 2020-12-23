@@ -1,8 +1,7 @@
 export enum ACTIONS_TYPE {
     SEARCH_BY_NAME = 'Search/SEARCH_BY_NAME',
     RANGE_MIN_MAX_COUNT = 'Search/RANGE_MIN_MAX_COUNT',
-    SORT = 'Search/SORT'
-
+    SORT = 'Search/SORT',
 }
 
 export type SearchType = {
@@ -10,13 +9,13 @@ export type SearchType = {
     maxCount: number
     searchByName: string
     sortItem: string
-
 }
 const initState: SearchType = {
     minCount: 1,
     maxCount: 4,
     searchByName: '',
     sortItem: ''
+
 }
 
 export const searchReducer = (state: SearchType = initState, action: ActionsType): SearchType => {
