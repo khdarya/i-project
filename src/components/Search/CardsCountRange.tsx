@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Range, getTrackBackground} from 'react-range';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../bll/store";
@@ -7,32 +7,35 @@ import {minMaxCountAC} from "../../bll/searchReducer";
 interface CardsCountRangeProps {
 // loading: boolean;
 // error: string;
- name: string;
+// name: string;
 // logoutCallback: () => void;
 }
 
 const CardsCountRange: React.FC<CardsCountRangeProps> = (
     {
-// loading, error, logoutCallback,
- name}) => {
+// loading,
+// error,
+// logoutCallback,
+// name
+    }
+) => {
 
-    //let minMaxValues = useSelector<AppStoreType>(state => state.search);
-
-    const [values, setValues] = useState([2, 12]);
+    const minValue = useSelector<AppStoreType, number>(state => state.search.minCount);
+    const maxValue = useSelector<AppStoreType, number>(state => state.search.maxCount);
+    const values: Array<number> = [minValue, maxValue]
+    //const [values, setValues] = useState([2, 12]);
 
     const dispatch = useDispatch();
     const setNewCount = (newCount: number[]) => {
         dispatch(minMaxCountAC(newCount[0], newCount[1]));
-
-        setValues(newCount)  //
+        //setValues(newCount)
     }
-
 
     return (
         <Range
             values={values}
             step={1}
-            min={1}
+            min={0}
             max={13}
             onChange={values => setNewCount(values)}
             renderTrack={({props, children}) => (
@@ -44,7 +47,7 @@ const CardsCountRange: React.FC<CardsCountRangeProps> = (
                         height: '36px',
                         display: 'flex',
                         width: '50%',
-                        margin: '30px',
+                        margin: '10px',
                     }}
                 >
                     <div
@@ -56,7 +59,7 @@ const CardsCountRange: React.FC<CardsCountRangeProps> = (
                             background: getTrackBackground({
                                 values: values,
                                 colors: ['#ccc', '#548BF4', '#ccc'],
-                                min: 1,
+                                min: 0,
                                 max: 13
                             }),
                             alignSelf: 'center'

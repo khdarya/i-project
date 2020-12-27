@@ -1,5 +1,5 @@
 .default {
-    margin-top: 5px;
+    margin: 5px;
     appearance: none;
     border: 0;
     border-radius: 5px;
@@ -22,7 +22,7 @@
     background-color: gray;
 }
 .red {
-    margin-top: 5px;
+    margin: 5px;
     appearance: none;
     border: 0;
     border-radius: 5px;

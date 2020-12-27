@@ -1,8 +1,11 @@
 import {Dispatch} from "react";
-import {profileAPI} from "../dal/api";
-import {LoginType, setIsLoggedInAC, setIsLoggedOutAC} from "./loginReducer";
+import {
+    LoginType,
+    setIsLoggedInAC,
+} from "./loginReducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStoreType} from "./store";
+import {profileAPI} from "../dal/profile-api";
 
 export enum ACTIONS_TYPE {
     SET_USER_PROFILE = 'Profile/SET_USER_PROFILE',
@@ -41,17 +44,13 @@ export const setUserProfile = (payload: ProfileType) => {
 }
 
 export const fetchProfileTC = (): ThunkType => (dispatch) => {
-    profileAPI.getProfile()
+   return profileAPI.getProfile()
         .then(res => {
-            if (res.status === 200) {
                 dispatch(setUserProfile(res.data))
                 dispatch(setIsLoggedInAC(true))
-            }
         })
         .catch(e => {
-            const error = e.response ? e.response.data.error : (e.message + `, more details in the console`)
-            console.log('Error: ', {...e})
-            setIsLoggedOutAC(false)
+            dispatch(setIsLoggedInAC(false))
         })
 }
 export type ProfileType = {
@@ -70,6 +69,7 @@ export type ProfileType = {
 export type ProfileInitialStateType = {
     profile: ProfileType
 }
-type ThunkType = ThunkAction<void, AppStoreType, Dispatch<ActionsType>, ActionsType>
+
+type ThunkType = ThunkAction<Promise<void>, AppStoreType, Dispatch<ActionsType>, ActionsType>
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 type ActionsType = SetUserProfileActionType | LoginType

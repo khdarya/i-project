@@ -11,8 +11,8 @@ export type SearchType = {
     sortItem: string
 }
 const initState: SearchType = {
-    minCount: 1,
-    maxCount: 4,
+    minCount: 0,
+    maxCount: 13,
     searchByName: '',
     sortItem: ''
 

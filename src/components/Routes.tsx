@@ -1,40 +1,43 @@
 import React from 'react'
-import {Switch, Route, Redirect} from 'react-router-dom'
+import {Redirect, Route, Switch} from 'react-router-dom'
 import Error404 from './Error404/Error404'
 import Test from './Test/Test'
-import {DevHeader} from "./dev/DevHeader";
-import { RegistrationContainer } from './Registration/RegistrationContainer'
+import {RegistrationContainer} from './Registration/RegistrationContainer'
 import RecoveryPassword from './RecoveryPassword/RecoveryPassword'
 import NewPassword from './NewPassword/NewPassword'
 import LoginContainer from "./Login/LoginContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
+import { PacksContainer } from './Packs/PacksContainer';
+import {Cards} from './Cards/Cards';
 import Search from "./Search/Search";
 
-
 export const PATH = {
-    Login: '/login',
-    Registration: '/registration',
-    Profile: '/profile',
-    Error404: '/404',
-    Test: '/test',
-    NewPassword: '/newpass/:id',
-    RecoveryPassword: '/recpass',
-    Search: '/search'
+    LOGIN: '/login',
+    REGISTRATION: '/registration',
+    PROFILE: '/profile',
+    ERROR404: '/404',
+    TEST: '/test',
+    NEW_PASSWORD: '/newpass/:id',
+    RECOVERY_PASSWORD: '/recpass',
+    PACKS: '/packs',
+    CARDS: '/cards',
+    SEARCH: '/search'
 }
 
 function Routes() {
     return (
         <div>
-            <DevHeader titles={PATH}/>
             <Switch>
-                <Route exact path={"/"} render={() => <Redirect to={PATH.Test}/>}/>
-                <Route path={PATH.Login} render={() => <LoginContainer/>}/>
-                <Route path={PATH.Registration} render={() => <RegistrationContainer/>}/>
-                <Route path={PATH.NewPassword} render={() => <NewPassword/>}/>
-                <Route path={PATH.RecoveryPassword} render={() => <RecoveryPassword/>}/>
-                <Route path={PATH.Profile} render={() => <ProfileContainer/>}/>
-                <Route path={PATH.Search} render={() => <Search />} />
-                <Route path={PATH.Test} render={() => <Test/>}/>
+                <Route exact path={"/"} render={() => <Redirect to={PATH.TEST}/>}/>
+                <Route path={PATH.LOGIN} render={() => <LoginContainer/>}/>
+                <Route path={PATH.REGISTRATION} render={() => <RegistrationContainer/>}/>
+                <Route path={PATH.NEW_PASSWORD} render={() => <NewPassword/>}/>
+                <Route path={PATH.RECOVERY_PASSWORD} render={() => <RecoveryPassword/>}/>
+                <Route path={PATH.PROFILE} render={() => <ProfileContainer/>}/>
+                <Route path={PATH.TEST} render={() => <Test/>}/>
+                <Route path={PATH.PACKS} render={() => <PacksContainer/>}/>
+                <Route path={PATH.CARDS} render={() => <Cards/>}/>
+                <Route path={PATH.SEARCH} render={() => <Search/>}/>
                 <Route render={() => <Error404/>}/>
             </Switch>
         </div>

@@ -13,7 +13,7 @@ export const RegistrationContainer = () => {
     let isRequestInProgress = useSelector((state: AppStoreType) => state.request.isRequestInProgress)
 
     if (isRegistration) {
-        return <Redirect to={PATH.Login}/>
+        return <Redirect to={PATH.LOGIN}/>
     }
 
     return (

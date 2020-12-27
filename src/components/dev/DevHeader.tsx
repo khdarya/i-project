@@ -21,9 +21,11 @@ export const DevHeader: React.FC<DevHeaderType> = React.memo(({titles}) => {
                 {Object.keys(titles).map(key => {
                     //@ts-ignore
                     return <NavLink key={key} to={titles[key]} activeClassName={styles.active}
-                                    className={styles.navLink}>{key}</NavLink>
+                                    className={styles.navLink}>{key[0] + key.substring(1).toLowerCase()}</NavLink>
                 })}
-                <SuperButton className={styles.logout} disabled={requestInProgress} onClick={logOutHandler}>Logout</SuperButton>
+                <SuperButton className={styles.logout}
+                             disabled={requestInProgress}
+                             onClick={logOutHandler}>Logout</SuperButton>
             </div>
         )
     }

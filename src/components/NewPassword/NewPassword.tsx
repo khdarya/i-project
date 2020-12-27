@@ -58,7 +58,7 @@ const NewPassword: React.FC = () => {
     }, [newPass, newPassConfirm, serverError])
 
     if (isRequestSuccess) {
-        return <Redirect to={PATH.Login}/>
+        return <Redirect to={PATH.LOGIN}/>
     }
 
     return (

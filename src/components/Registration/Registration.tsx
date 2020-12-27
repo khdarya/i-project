@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {registerUser} from "../../bll/registrationReducer";
 import {checkEmail, checkLength, checkMatch, checkRequired} from "../../utils/validators";
 import styles from './../common/styles/FormStyle.module.css'
-import {ResponseErrorType} from "../../bll/requestReduced";
+import {ResponseErrorType} from "../../bll/requestReducer";
 import {NavLink} from 'react-router-dom'
 
 type RegistrationType = {

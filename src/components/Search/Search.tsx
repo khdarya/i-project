@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent} from 'react'
 import SuperButton from "../common/SuperButton/SuperButton";
 import SuperInputText from "../common/SuperInputText/SuperInputText";
 import {useDispatch} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
 import CardsCountRange from "./CardsCountRange";
-import {searchAC, sortAC} from "../../bll/searchReducer";
+import {searchAC} from "../../bll/searchReducer";
 import Sort from "./Sort";
 import Pagination from "./Pagination";
 
@@ -30,7 +30,7 @@ const Search = () => {
                 </div>
 
                 <div>
-                    <CardsCountRange name={'Cards Count Range'}/>
+                    <CardsCountRange />
                 </div>
 
                 <div>

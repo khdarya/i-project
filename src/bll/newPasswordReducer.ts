@@ -1,8 +1,8 @@
 import {ThunkAction} from "redux-thunk";
 import {AppStoreType} from "./store";
 import {Dispatch} from "react";
-import {passwordAPI} from "../dal/api";
-import {isRequestInProgress, isRequestSuccess, RequestActionCreatorsType, setResponseErrorText} from "./requestReduced";
+import {isRequestInProgress, isRequestSuccess, RequestActionCreatorsType, setResponseErrorText} from "./requestReducer";
+import {passwordAPI} from "../dal/password-api";
 
 enum ACTIONS_TYPE {
     CHANGE_NEW_INPUT_PASS = 'NewPass/CHANGE_NEW_INPUT_PASS',
@@ -36,8 +36,8 @@ export const changeNewInputPass = (text: string) => {
 
 // types
 export type ChangeNewInputPassACType = ReturnType<typeof changeNewInputPass>
-export type NewPasswordActionCreatorsType = ChangeNewInputPassACType
-export type ThunkType = ThunkAction<void, AppStoreType, Dispatch<NewPasswordActionCreatorsType | RequestActionCreatorsType>, NewPasswordActionCreatorsType | RequestActionCreatorsType>
+export type NewPasswordActionCreatorsType = ChangeNewInputPassACType | RequestActionCreatorsType
+export type ThunkType = ThunkAction<void, AppStoreType, Dispatch<NewPasswordActionCreatorsType>, NewPasswordActionCreatorsType>
 
 // thunks
 export const sendNewPass = (id: string): ThunkType => {
@@ -45,9 +45,8 @@ export const sendNewPass = (id: string): ThunkType => {
         const password = getState().newPassword.password
         dispatch(isRequestInProgress(true))
         dispatch(setResponseErrorText(null, 'NewPassword'))
-
         passwordAPI.setNewPassword(password, id)
-            .then(response => {
+            .then(() => {
                 dispatch(isRequestSuccess(true))
             })
             .catch(e => {

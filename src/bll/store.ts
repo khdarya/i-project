@@ -5,7 +5,10 @@ import {loginReducer} from './loginReducer'
 import {registrationReducer} from './registrationReducer'
 import {recoveryPasswordReducer} from "./recoveryPasswordReducer";
 import thunkMiddleware from 'redux-thunk'
-import {requestReducer} from "./requestReduced";
+import {requestReducer} from "./requestReducer";
+import {appReducer} from "./appReducer";
+import {packsReducer} from "./packsReducer";
+import {cardsReducer} from "./cardsReducer";
 import {searchReducer} from "./searchReducer";
 
 const reducers = combineReducers({
@@ -15,6 +18,9 @@ const reducers = combineReducers({
     profile: profileReducer,
     registration: registrationReducer,
     request: requestReducer,
+    app: appReducer,
+    packs: packsReducer,
+    cards: cardsReducer,
     search: searchReducer
 })
 export type AppStoreType = ReturnType<typeof reducers>

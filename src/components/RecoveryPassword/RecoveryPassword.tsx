@@ -41,9 +41,11 @@ const RecoveryPassword: React.FC = () => {
         && dispatch(forgotPass())
     }, [email])
 
+
+
     return (
         <div className={styles.body}>
-            {isRequestSuccess
+            {isRequestSuccess && responseError.inComponent === 'RecoveryPassword'
                 ? <div>The message is sent successfully. Please check your email: <b>{email}</b></div>
                 : <div className={styles.form}>
                     <div>Recovery password</div>

@@ -1,13 +1,12 @@
 import {ThunkAction} from "redux-thunk";
 import {AppStoreType} from "./store";
 import {Dispatch} from "react";
-import {registrationAPI} from "../dal/api";
-import {isRequestInProgress, RequestActionCreatorsType, setResponseErrorText} from "./requestReduced";
+import {isRequestInProgress, RequestActionCreatorsType, setResponseErrorText} from "./requestReducer";
+import {registrationAPI} from "../dal/registration-api";
 
 export enum ACTIONS_TYPE {
     SUCCESSFULLY_REGISTERED = 'Registration/SUCCESSFULLY_REGISTERED',
     ERROR = 'Registration/ERROR',
-
 }
 
 export type RegistrationType = {
@@ -37,36 +36,22 @@ export const registrationReducer = (state: RegistrationType = initState, action:
             return state
     }
 }
-//actions
-type ActionsType = RegistrationACType | ErrorACType
+// actions
+export const registrationAC = (isRegistered: boolean) => ({type: ACTIONS_TYPE.SUCCESSFULLY_REGISTERED, isRegistered} as const)
+export const errorAC = (error: string) => ({type: ACTIONS_TYPE.ERROR, error} as const)
 
-export type RegistrationACType = {
-    type: ACTIONS_TYPE.SUCCESSFULLY_REGISTERED,
-    isRegistered: boolean
-}
-export type ErrorACType = {
-    type: ACTIONS_TYPE.ERROR,
-    error: string
-}
+// type
+type ErrorACType = ReturnType<typeof errorAC>
+type RegistrationACType = ReturnType<typeof registrationAC>
+type ActionsType = RegistrationACType | ErrorACType | RequestActionCreatorsType
+export type ThunkType = ThunkAction<void, AppStoreType, Dispatch<ActionsType> , ActionsType>
 
-
-export const registrationAC = (isRegistered: boolean) =>
-    ({type: ACTIONS_TYPE.SUCCESSFULLY_REGISTERED, isRegistered} as const)
-
-export const errorAC = (error: string) =>
-    ({type: ACTIONS_TYPE.ERROR, error} as const)
-
-
-//thunk
-export type ThunkType = ThunkAction<void, AppStoreType, Dispatch<ActionsType | RequestActionCreatorsType> , ActionsType | RequestActionCreatorsType>
-
+// thunk
 export const registerUser = (email: string, password: string, confirmPassword: string): ThunkType => (dispatch) => {
-
     dispatch(isRequestInProgress(true))
     dispatch(setResponseErrorText(null, 'Registration'))
-
     registrationAPI.sendNewRegistration(email, password)
-        .then(response => {
+        .then(() => {
             dispatch(registrationAC(true))
         })
         .catch((e) => {
