@@ -3,6 +3,7 @@ import {AppStoreType} from "./store";
 import {Dispatch} from "react";
 import {isRequestInProgress, isRequestSuccess, RequestActionCreatorsType, setResponseErrorText} from "./requestReducer";
 import {packsApi} from "../dal/packs-api";
+import {handleServerNetworkError} from "../utils/error-utils";
 
 enum ACTIONS_TYPE {
     SET_PACKS = 'Cards/SET_PACKS',
@@ -11,6 +12,7 @@ enum ACTIONS_TYPE {
     PAGE_SIZE = 'Cards/PAGE_SIZE',
     CURRENT_PAGE = 'Cards/CURRENT_PAGE',
     TOTAl_COUNT = 'Cards/TOTAl_COUNT',
+    SET_SORT = 'Cards/SET_SORT'
 }
 
 export type PackType = {
@@ -38,6 +40,7 @@ export type PacksType = {
     currentPage: number
     pageSize: number
     totalCount: number | null
+    sortPacks: string
 }
 const initState: PacksType = {
     cardPacks: [
@@ -64,7 +67,8 @@ const initState: PacksType = {
     isLoadingPacksData: true,
     currentPage: 1,
     pageSize: 10,
-    totalCount: 0
+    totalCount: 0,
+    sortPacks: ''
 }
 
 export const packsReducer = (state: PacksType = initState, action: PacksActionCreatorsType): PacksType => {
@@ -92,6 +96,9 @@ export const packsReducer = (state: PacksType = initState, action: PacksActionCr
         }
         case ACTIONS_TYPE.TOTAl_COUNT: {
             return {...state, totalCount: action.totalCount}
+        }
+        case ACTIONS_TYPE.SET_SORT: {
+            return {...state, sortPacks: action.sortPacks}
         }
         default:
             return state
@@ -127,17 +134,24 @@ export const setTotalCounts = (totalCount: number | null) => {
         type: ACTIONS_TYPE.TOTAl_COUNT, totalCount
     } as const
 }
+export const setSortAC = (sortPacks: string) => {
+    return {
+        type: ACTIONS_TYPE.SET_SORT, sortPacks
+    } as const
+}
 
 // types
 export type SetPacksACType = ReturnType<typeof setPacks>
 export type SetMyIDACType = ReturnType<typeof setMyID>
 export type SetCurrentPageACType = ReturnType<typeof setCurrentPage>
+
+export type SetSortACType = ReturnType<typeof setSortAC>
 export type SetTotalCountsACType = ReturnType<typeof setTotalCounts>
 export type SetIsLoadingPacksDataACType = ReturnType<typeof setIsLoadingPacksData>
 export type ThunkType = ThunkAction<void, AppStoreType, Dispatch<PacksActionCreatorsType>, PacksActionCreatorsType>
 export type PacksActionCreatorsType = SetPacksACType
     | SetMyIDACType | RequestActionCreatorsType | SetIsLoadingPacksDataACType
-    | SetCurrentPageACType | SetTotalCountsACType
+    | SetCurrentPageACType | SetTotalCountsACType | SetSortACType
 
 // thunks
 export const getPacksTC = (): ThunkType => {
@@ -156,6 +170,7 @@ export const getPacksTC = (): ThunkType => {
             .then(response => {
                 dispatch(setPacks(response.cardPacks))
                 dispatch(setTotalCounts(response.cardPacksTotalCount))
+                dispatch(setSortAC(response.sortPacks))
             })
             .catch(e => {
                 const error = e.response
@@ -186,9 +201,10 @@ export const addPackTC = (): ThunkType => {
                 dispatch(getPacksTC())
             })
             .catch(e => {
-                const error = e.response
-                    ? e.response.data.error
-                    : (e.message + ', more details in the console');
+                // const error = e.response
+                //     ? e.response.data.error
+                //     : (e.message + ', more details in the console');
+                handleServerNetworkError(e, dispatch)
             })
             .finally(() => dispatch(isRequestInProgress(false)))
     }
@@ -206,9 +222,10 @@ export const updPackTC = (id: string): ThunkType => {
                 dispatch(getPacksTC())
             })
             .catch(e => {
-                const error = e.response
-                    ? e.response.data.error
-                    : (e.message + ', more details in the console');
+                // const error = e.response
+                //     ? e.response.data.error
+                //     : (e.message + ', more details in the console');
+                handleServerNetworkError(e, dispatch)
             })
             .finally(() => dispatch(isRequestInProgress(false)))
     }
@@ -222,9 +239,10 @@ export const delPackTC = (packId: string): ThunkType => {
                 dispatch(getPacksTC())
             })
             .catch(e => {
-                const error = e.response
-                    ? e.response.data.error
-                    : (e.message + ', more details in the console');
+                // const error = e.response
+                //     ? e.response.data.error
+                //     : (e.message + ', more details in the console');
+                handleServerNetworkError(e, dispatch)
             })
             .finally(() => dispatch(isRequestInProgress(false)))
     }

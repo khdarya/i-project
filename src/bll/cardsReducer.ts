@@ -3,6 +3,7 @@ import {AppStoreType} from "./store";
 import {Dispatch} from "react";
 import {isRequestInProgress, isRequestSuccess, RequestActionCreatorsType, setResponseErrorText} from "./requestReducer";
 import {cardsApi} from "../dal/cards-api";
+import {handleServerNetworkError} from "../utils/error-utils";
 
 enum ACTIONS_TYPE {
     SET_CARDS = 'Cards/SET_CARDS',
@@ -154,9 +155,10 @@ export const addCardTC = (): ThunkType => {
                 dispatch(getCardsTC())
             })
             .catch(e => {
-                const error = e.response
-                    ? e.response.data.error
-                    : (e.message + ', more details in the console');
+                // const error = e.response
+                //     ? e.response.data.error
+                //     : (e.message + ', more details in the console');
+                handleServerNetworkError(e, dispatch)
             })
             .finally(() => dispatch(isRequestInProgress(false)))
     }
@@ -173,10 +175,9 @@ export const updCardTC = (id: string): ThunkType => {
             .then(() => {
                 dispatch(getCardsTC())
             })
-            .catch(e => {
-                const error = e.response
-                    ? e.response.data.error
-                    : (e.message + ', more details in the console');
+            .catch(error => {
+              //debugger
+                handleServerNetworkError(error, dispatch)
             })
             .finally(() => dispatch(isRequestInProgress(false)))
     }
@@ -190,9 +191,10 @@ export const delCardTC = (cardId: string): ThunkType => {
                 dispatch(getCardsTC())
             })
             .catch(e => {
-                const error = e.response
-                    ? e.response.data.error
-                    : (e.message + ', more details in the console');
+                // const error = e.response
+                //     ? e.response.data.error
+                //     : (e.message + ', more details in the console');
+                handleServerNetworkError(e, dispatch)
             })
             .finally(() => dispatch(isRequestInProgress(false)))
     }

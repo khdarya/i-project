@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "./bll/store";
 import {initializeApp} from "./bll/appReducer";
 import {Preloader} from "./components/common/Preloader/Preloader";
+import {ErrorSnackbar} from "./components/common/ErrorSnackbar/ErrorSnackbar";
 
 function App() {
     const dispatch = useDispatch()
@@ -22,6 +23,7 @@ function App() {
         <>
             <DevHeader titles={PATH}/>
             <Routes/>
+            <ErrorSnackbar />
         </>
     )
 }
