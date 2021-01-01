@@ -4,8 +4,7 @@ import {InputModals} from "./InputModals";
 
 export const InputModalsContainer: React.FC = () => {
     const [open, setOpen] = useState(false);
-    const [answer, setAnswer] = useState('test');
-    const [value1, setValue1] = useState('value');
+    const [value, setValue] = useState('value');
 
     return (
         <div>
@@ -14,14 +13,12 @@ export const InputModalsContainer: React.FC = () => {
             <InputModals close={() => setOpen(false)}
                          open={open}
                          setClose={() => setOpen(false)}
-                         answer={answer}
-                         setAnswer={setAnswer}
-                         value1={value1}
-                         setValue1={setValue1}
+                         value={value}
+                         setValue={setValue}
             />
 
             <div>
-                {answer}-{value1}
+                {value}
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from "react"
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, useState} from "react"
 import SuperButton from "../common/SuperButton/SuperButton";
 import {Table} from "../common/Table/Table";
 import CardsCountRange from "../Search/CardsCountRange";
@@ -7,6 +7,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
 import '../common/Pagination/Pagination.css'
 import Pagination from "../common/Pagination/Pagination";
+import {Modals} from "../Modals/Modals";
+import {InputModals} from "../Modals/InputModals";
+import {setNewPackName} from "../../bll/packsReducer";
 
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -15,7 +18,7 @@ type PacksPropsType = DefaultInputPropsType & {
     isRequestInProgress: boolean
     onGetMyPacks: () => void
     onGetAllPacks: () => void
-    onAddPack: () => void
+    onAddPack: (value: string) => void
     onUpdPack: (id: string) => void
     onDelPack: (id: string) => void
     onClickLink: (id: string) => void
@@ -50,18 +53,35 @@ export const Packs: React.FC<PacksPropsType> = (
         onChangeSearch && onChangeSearch(e.currentTarget.value)
     }
 
+    const [open, setOpen] = useState(true);
+    const [value, setValue] = useState('');
+    const [addItemMode, setAddItemMode] = useState(false)
+
+    const AddItemHandler = () => setAddItemMode(true)
+
     return (
         <div>
             <CardsCountRange/>
 
             <SuperButton onClick={onGetMyPacks} disabled={isRequestInProgress}>Get My Packs</SuperButton>
             <SuperButton onClick={onGetAllPacks} disabled={isRequestInProgress}>Get All Packs</SuperButton>
-            <SuperButton onClick={onAddPack} disabled={isRequestInProgress}>Add Pack</SuperButton>
+            <SuperButton onClick={AddItemHandler} disabled={isRequestInProgress}>Add Pack</SuperButton>
 
             <div>
                 <SuperInputText onChange={onChangeCallback} placeholder={'Search cards pack name...'}/>
                 <SuperButton onClick={onSearch}><FontAwesomeIcon icon={faSearch}/></SuperButton>
             </div>
+
+            {
+                addItemMode
+                &&
+                <InputModals close={() => { onAddPack(value); setAddItemMode(false); setValue(''); }}
+                             open={open}
+                             setClose={() => {  setAddItemMode(false); }}
+                             setValue={setValue}
+                             value={value}
+                             />
+            }
 
             <Table
                 header={packsTableData[0]}

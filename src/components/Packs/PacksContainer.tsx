@@ -34,8 +34,8 @@ export const PacksContainer = () => {
         dispatch(setMyID(null))
         dispatch(getPacksTC())
     }
-    const onAddPack = () => {
-        dispatch(addPackTC())
+    const onAddPack = (value: string) => {
+        dispatch(addPackTC(value))
     }
     const onUpdPack = (id: string) => {
         dispatch(updPackTC(id))

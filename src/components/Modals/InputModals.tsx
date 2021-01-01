@@ -8,19 +8,14 @@ interface IModalInput {
     setClose: (e: boolean) => void;
     buttonTrue?: ReactNode;
     close: () => void
-    answer?: string;
-    setAnswer?: (answer: string) => void;
-    value1?: string;
-    setValue1?: (answer: string) => void;
+    value?: string;
+    setValue?: (value: string) => void;
     inputData?: any;
 }
 
 export const InputModals: React.FC<IModalInput> = ({
-                                                       answer,
-                                                       setAnswer = (answer: string) => {
-                                                       },
-                                                       value1,
-                                                       setValue1 = (value1: string) => {
+                                                       value,
+                                                       setValue = (value: string) => {
                                                        },
                                                        setClose = () => {
                                                        },
@@ -28,12 +23,8 @@ export const InputModals: React.FC<IModalInput> = ({
                                                        buttonTrue = 'OK',
                                                        close
                                                    }) => {
-    const [answerData, setAnswerData] = useState(answer);
-    const [value, setValue] = useState(value1)
-
     const onSuccess = () => {
-        setAnswer(answerData || '');
-        setValue1(value || '')
+        setValue(value || '')
         close();
     }
 
@@ -44,9 +35,6 @@ export const InputModals: React.FC<IModalInput> = ({
                     show={open}
                     title={"Input Modal"}
             >
-                <SuperInputText value={answerData}
-                                onChange={e => setAnswerData(e.currentTarget.value)}></SuperInputText>
-                <br/>
                 <SuperInputText value={value} onChange={e => setValue(e.currentTarget.value)}></SuperInputText>
 
                 <SuperButton onClick={onSuccess}>{buttonTrue}</SuperButton>

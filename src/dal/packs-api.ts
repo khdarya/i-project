@@ -8,6 +8,7 @@ export type ResponseGetPacksType = {
     minCardsCount: number | null
     page: number | null
     pageCount: number | null
+    sortPacks: string
 }
 
 export const packsApi = {
