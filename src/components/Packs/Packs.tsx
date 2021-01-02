@@ -53,11 +53,10 @@ export const Packs: React.FC<PacksPropsType> = (
         onChangeSearch && onChangeSearch(e.currentTarget.value)
     }
 
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const [value, setValue] = useState('');
-    const [addItemMode, setAddItemMode] = useState(false)
 
-    const AddItemHandler = () => setAddItemMode(true)
+    const AddItemHandler = () => setOpen(true)
 
     return (
         <div>
@@ -73,11 +72,9 @@ export const Packs: React.FC<PacksPropsType> = (
             </div>
 
             {
-                addItemMode
-                &&
-                <InputModals close={() => { onAddPack(value); setAddItemMode(false); setValue(''); }}
+                <InputModals close={() => { onAddPack(value); setOpen(false); setValue(''); }}
                              open={open}
-                             setClose={() => {  setAddItemMode(false); }}
+                             setClose={() => { setOpen(false)}}
                              setValue={setValue}
                              value={value}
                              />
