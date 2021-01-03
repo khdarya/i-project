@@ -88,7 +88,8 @@ export const Packs: React.FC<PacksPropsType> = (
                 disabledBtn={isRequestInProgress}
                 onClickLink={onClickLink}
                 isActions
-                isLink/>
+                isLink
+                isLearn/>
 
             <Pagination totalCount={totalCount}
                         pageSize={pageSize}

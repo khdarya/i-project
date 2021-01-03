@@ -6,7 +6,7 @@ import {AppStoreType} from "../../bll/store";
 import {Redirect} from "react-router-dom";
 import {PATH} from "../Routes";
 import {getCardsTableData} from "./selector";
-import {addCardTC, delCardTC, getCardsTC, updCardTC} from "../../bll/cardsReducer";
+import {addCardTC, delCardTC, getCardsTC, updateGradeTC, updCardTC} from "../../bll/cardsReducer";
 
 export const Cards = () => {
     console.log('Cards')
@@ -29,6 +29,9 @@ export const Cards = () => {
     const onDelCard = (id: string) => {
         dispatch(delCardTC(id))
     }
+    const onClickUpdGrade = (id: string, grade: number) => {
+        dispatch(updateGradeTC(id, grade))
+    }
 
     if (!isLoggedIn) {
         return <Redirect to={PATH.LOGIN}/>
@@ -45,6 +48,7 @@ export const Cards = () => {
                 onClickDelBtn={onDelCard}
                 disabledBtn={isRequestInProgress}
                 isActions
+                onClickUpdGrade={onClickUpdGrade}
             />
         </div>
     )

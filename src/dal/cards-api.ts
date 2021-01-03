@@ -25,5 +25,8 @@ export const cardsApi = {
     delCard(cardId: string) {
         return instance.delete(`/cards/card/?id=${cardId}`)
             .then(res => res.data)
+    },
+    updGrade(grade: number, card_id: string) {
+        return instance.put(`/cards/grade`, {grade, card_id})
     }
 }

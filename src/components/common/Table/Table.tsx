@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {NavLink} from 'react-router-dom';
 import SuperButton from "../SuperButton/SuperButton";
+import {Grade} from "../Grade/Grade";
+import {PATH} from "../../Routes";
 
 type TablePropsType = {
     header: Object
@@ -8,7 +10,9 @@ type TablePropsType = {
     onClickUpdBtn?: (id: string) => void
     onClickDelBtn?: (id: string) => void
     onClickLink?: (id: string) => void
+    onClickUpdGrade?: (id: string, grade: number) => void
     isLink?: boolean
+    isLearn?: boolean
     isActions?: boolean
     disabledBtn?: boolean
 }
@@ -20,9 +24,11 @@ export const Table: React.FC<TablePropsType> = (
         onClickUpdBtn,
         onClickDelBtn,
         isLink,
+        isLearn,
         isActions,
         disabledBtn,
-        onClickLink
+        onClickLink,
+        onClickUpdGrade
     }
 ) => {
 
@@ -36,6 +42,9 @@ export const Table: React.FC<TablePropsType> = (
 
     const onClickLinkCallback = (id: string) => {
         onClickLink && onClickLink(id)
+    }
+    const onClickUpdGradeCallback = (id: string, grade: number) => {
+        onClickUpdGrade && onClickUpdGrade(id, grade)
     }
 
     if (!header || !data) {
@@ -57,11 +66,15 @@ export const Table: React.FC<TablePropsType> = (
                     {Object.values(item).map((value: any) => <td>{value}</td>)}
                     <td>
                         {isActions
-                        && <><SuperButton disabled={disabledBtn} onClick={() => onClickUpdCallback(item.id)}>Update</SuperButton>
-                             <SuperButton disabled={disabledBtn} onClick={() => onClickDelCallback(item.id)}>Delete</SuperButton>
-                           </>}
-                        {isLink
-                        && <NavLink onClick={() => onClickLinkCallback(item.id)} to={'/cards'}>Cards</NavLink>}
+                        && <><SuperButton disabled={disabledBtn}
+                                          onClick={() => onClickUpdCallback(item.id)}>Update</SuperButton>
+                            <SuperButton disabled={disabledBtn}
+                                         onClick={() => onClickDelCallback(item.id)}>Delete</SuperButton>
+                        </>}
+                        {isLink && <NavLink onClick={() => onClickLinkCallback(item.id)} to={PATH.CARDS}>Cards</NavLink>}
+                        {!isLink && <Grade isRequestInProgress={disabledBtn} value={item.grade}
+                                           onClick={(value) => onClickUpdGradeCallback(item.id, value)}/>}
+                        {isLearn && <NavLink onClick={() => onClickLinkCallback(item.id)} to={PATH.LEARN}>Learn</NavLink>}
                     </td>
                 </tr>
             ))}

@@ -1,0 +1,21 @@
+.star {
+    font-size: 30px;
+    color: #4676D7;
+    text-shadow: 2px 1px 0 #151515;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.star:hover {
+    color: #ffb400;
+}
+
+.selected {
+    color: #ffb400;
+}
+
+.disable {
+    pointer-events: none;
+    opacity: 0.7;
+}

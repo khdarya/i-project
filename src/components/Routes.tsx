@@ -10,8 +10,8 @@ import ProfileContainer from "./Profile/ProfileContainer";
 import { PacksContainer } from './Packs/PacksContainer';
 import {Cards} from './Cards/Cards';
 import Search from "./Search/Search";
-import {ModalsContainer} from "./Modals/ModalsContainer";
 import ModalsTestPage from "./Modals/ModalsTestPage";
+import {Learn} from "./Learn/Learn";
 
 export const PATH = {
     LOGIN: '/login',
@@ -23,6 +23,7 @@ export const PATH = {
     RECOVERY_PASSWORD: '/recpass',
     PACKS: '/packs',
     CARDS: '/cards',
+    LEARN: '/learn',
     SEARCH: '/search',
     MODALS: '/modals'
 }
@@ -40,6 +41,7 @@ function Routes() {
                 <Route path={PATH.TEST} render={() => <Test/>}/>
                 <Route path={PATH.PACKS} render={() => <PacksContainer/>}/>
                 <Route path={PATH.CARDS} render={() => <Cards/>}/>
+                <Route path={PATH.LEARN} render={() => <Learn/>}/>
                 <Route path={PATH.MODALS} render={() => <ModalsTestPage/>}/>
                 <Route path={PATH.SEARCH} render={() => <Search/>}/>
                 <Route render={() => <Error404/>}/>

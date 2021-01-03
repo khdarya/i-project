@@ -9,21 +9,22 @@ enum ACTIONS_TYPE {
     SET_CARDS = 'Cards/SET_CARDS',
     SET_CARDS_PACK_ID = 'Cards/SET_CARDS_PACK_ID',
     SET_IS_LOADING_CARDS_DATA = 'Cards/SET_IS_LOADING_CARDS_DATA',
+    UPDATE_GRADE = 'Cards/UPDATE_GRADE',
 }
 
 export type CardType = {
     answer: string | null
     question: string | null
     cardsPack_id: string | null
-    grade: number | null
+    grade: number
     rating: number | null
-    shots: number | null
+    shots: number
     type: string | null
     user_id: string | null
     created: string | null
     updated: string | null
     __v: number | null
-    _id: string | null
+    _id: string
 }
 export type CardsType = {
     cards: Array<CardType>
@@ -36,15 +37,15 @@ const initState: CardsType = {
             answer: null,
             question: null,
             cardsPack_id: null,
-            grade: null,
+            grade: 0,
             rating: null,
-            shots: null,
+            shots: 0,
             type: null,
             user_id: null,
             created: null,
             updated: null,
             __v: null,
-            _id: null,
+            _id: "",
         },
     ],
     cardsPackId: null,
@@ -71,6 +72,20 @@ export const cardsReducer = (state: CardsType = initState, action: CardsActionCr
                 isLoadingCardsData: action.isLoadingCardsData
             }
         }
+        case ACTIONS_TYPE.UPDATE_GRADE: {
+            return {
+                ...state,
+                cards: state.cards.map(c => {
+                    if (c._id === action.id) {
+                        return {
+                            ...c,
+                            grade: action.grade,
+                            shots: action.shots
+                        }
+                    } else return c
+                })
+            }
+        }
         default:
             return state
     }
@@ -95,13 +110,25 @@ export const setIsLoadingCardsData = (isLoadingCardsData: boolean) => {
         isLoadingCardsData
     } as const
 }
+export const updateGradeAC = (grade: number, shots: number, id: string) => {
+    return {
+        type: ACTIONS_TYPE.UPDATE_GRADE,
+        grade, shots, id
+    } as const
+}
 
 // types
 export type SetCardsACType = ReturnType<typeof setCards>
 export type SetCardPackIdACType = ReturnType<typeof setCardPackId>
 export type SetIsLoadingCardsDataACType = ReturnType<typeof setIsLoadingCardsData>
+export type UpdateGradeACType = ReturnType<typeof updateGradeAC>
 export type ThunkType = ThunkAction<void, AppStoreType, Dispatch<CardsActionCreatorsType>, CardsActionCreatorsType>
-export type CardsActionCreatorsType = SetCardsACType | SetCardPackIdACType | RequestActionCreatorsType | SetIsLoadingCardsDataACType
+export type CardsActionCreatorsType =
+    SetCardsACType
+    | SetCardPackIdACType
+    | RequestActionCreatorsType
+    | SetIsLoadingCardsDataACType
+    | UpdateGradeACType
 
 // thunks
 export const getCardsTC = (): ThunkType => {
@@ -198,4 +225,18 @@ export const delCardTC = (cardId: string): ThunkType => {
             })
             .finally(() => dispatch(isRequestInProgress(false)))
     }
+}
+export const updateGradeTC = (cardId: string, grade: number): ThunkType => (dispatch) => {
+    dispatch(isRequestInProgress(true))
+    cardsApi.updGrade(grade, cardId)
+        .then(res => {
+            dispatch(updateGradeAC(res.data.updatedGrade.grade, res.data.updatedGrade.shots, res.data.updatedGrade.card_id))
+            //console.log(res)
+        })
+        .catch(e => {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+        })
+        .finally(() => dispatch(isRequestInProgress(false)))
 }
