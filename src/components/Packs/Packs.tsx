@@ -7,9 +7,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
 import '../common/Pagination/Pagination.css'
 import Pagination from "../common/Pagination/Pagination";
-import {Modals} from "../Modals/Modals";
 import {InputModals} from "../Modals/InputModals";
-import {setNewPackName} from "../../bll/packsReducer";
 
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -77,6 +75,7 @@ export const Packs: React.FC<PacksPropsType> = (
                              setClose={() => { setOpen(false)}}
                              setValue={setValue}
                              value={value}
+                             title={"Add New Pack Name"}
                              />
             }
 

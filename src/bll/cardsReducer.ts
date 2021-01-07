@@ -161,7 +161,7 @@ export const getCardsTC = (): ThunkType => {
     }
 }
 
-export const addCardTC = (): ThunkType => {
+export const addCardTC = (value:string): ThunkType => {
     return (dispatch, getState) => {
         const newCard = {
             cardsPack_id: getState().cards.cardsPackId,
@@ -175,6 +175,7 @@ export const addCardTC = (): ThunkType => {
             // questionVideo: 'questionVideo',
             // answerVideo: 'answerVideo',
             // type: 'type'
+            answer: value
         }
         dispatch(isRequestInProgress(true))
         cardsApi.addCard(newCard)

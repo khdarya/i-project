@@ -11,17 +11,17 @@ interface IModalInput {
     value?: string;
     setValue?: (value: string) => void;
     inputData?: any;
+    title?: string
 }
 
 export const InputModals: React.FC<IModalInput> = ({
                                                        value,
-                                                       setValue = (value: string) => {
-                                                       },
-                                                       setClose = () => {
-                                                       },
+                                                       setValue = (value: string) => {},
+                                                       setClose,
                                                        open,
                                                        buttonTrue = 'OK',
-                                                       close
+                                                       close,
+                                                       title
                                                    }) => {
     const onSuccess = () => {
         setValue(value || '')
@@ -33,7 +33,7 @@ export const InputModals: React.FC<IModalInput> = ({
 
             <Modals setClose={setClose}
                     show={open}
-                    title={"Input Modal"}
+                    title={title || ''}
             >
                 <SuperInputText value={value} onChange={e => setValue(e.currentTarget.value)}></SuperInputText>
 
