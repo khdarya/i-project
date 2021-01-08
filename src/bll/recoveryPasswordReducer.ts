@@ -46,7 +46,7 @@ export const forgotPass = (): ThunkType => {
             from: `test-front-admin <sergei.shaporov@gmail.com>`,
             message: `<div style="background-color: lime; padding: 15px">
                                 password recovery link: 
-                                <a href='http://localhost:3000/#/newpass/$token$'>link</a>
+                                <a href='https://sshaporov.github.io/friday/#/newpass/$token$'>link</a>
                          </div>`
         }
         dispatch(isRequestInProgress(true))
